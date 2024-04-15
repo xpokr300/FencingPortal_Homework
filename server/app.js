@@ -4,6 +4,8 @@ const app = express()
 const port = 3000
 
 const categoryController = require("./controller/category");
+const participantController = require("./controller/participant");
+
 
 
 app.use(express.json()); // podpora pro application/json
@@ -16,6 +18,8 @@ app.get('/', (req, res) => {
 })
 
 app.use("/category",categoryController)
+app.use("/participant",participantController)
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

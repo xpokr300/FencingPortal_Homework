@@ -32,7 +32,7 @@ async function UpdateAbl(req, res) {
 
     const categoryList = categoryDao.list();
     const categoryExists = categoryList.some(
-      (c) => c.email === category.email && c.id !== category.id
+      (c) => c.name === category.name && c.id !== category.id
     );
     if (categoryExists) {
       res.status(400).json({
