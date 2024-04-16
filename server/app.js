@@ -5,7 +5,7 @@ const port = 3000
 
 const categoryController = require("./controller/category");
 const participantController = require("./controller/participant");
-
+const tournamentController = require("./controller/tournament");
 
 
 app.use(express.json()); // podpora pro application/json
@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 
 app.use("/category",categoryController)
 app.use("/participant",participantController)
+app.use("/tournament",tournamentController)
 
 
 app.listen(port, () => {
