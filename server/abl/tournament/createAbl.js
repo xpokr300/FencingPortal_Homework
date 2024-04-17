@@ -21,7 +21,8 @@ const schema = {
         properties:{
           categoryId:{ type: "string" },
         },
-        required: ["categoryId"]
+        required: ["categoryId"],
+        additionalProperties: false,
       }      
     }
   },

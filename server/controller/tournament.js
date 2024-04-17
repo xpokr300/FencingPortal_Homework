@@ -6,7 +6,9 @@ const ListAbl = require("../abl/tournament/listAbl");
 const CreateAbl = require("../abl/tournament/createAbl");
 const UpdateAbl = require("../abl/tournament/updateAbl");
 const DeleteAbl = require("../abl/tournament/deleteAbl");
-const AddParticipantAbl = require("../abl/tournament/AddParticipantAbl");
+const AddParticipantAbl = require("../abl/tournament/addParticipantAbl");
+const GetDetailAbl = require("../abl/tournament/getDetailAbl");
+
 
 router.get("/get", (req, res) => {
     GetAbl(req, res);
@@ -30,6 +32,10 @@ router.get("/get", (req, res) => {
 
   router.post("/addparticipant", (req, res) => {
     AddParticipantAbl(req, res);
+  });
+
+  router.post("/getDetailAbl", (req, res) => {
+    GetDetailAbl(req, res);
   });
   
 

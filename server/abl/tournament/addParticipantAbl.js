@@ -58,7 +58,7 @@ async function addParticipantAbl(req, res) {
     if (!tournamentExists) {
       res.status(404).json({
         code: "tournamentNotFound",
-        message: `Tournament ${registration.categoryid} not found`,
+        message: `Tournament ${registration.tournamentId} not found`,
       });
       return;
     }
