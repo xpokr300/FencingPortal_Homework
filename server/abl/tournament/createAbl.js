@@ -54,7 +54,13 @@ async function CreateAbl(req, res) {
       });
       return;
     }
-
+    
+    //Participant array init 
+    for(let i = 0; i<tournament.categoriesList.length; i++){
+      tournament.categoriesList[i].participantsList = [];
+      console.log(tournament.categoriesList[i]);
+    }
+    
     tournament = tournamentDao.create(tournament);
     res.json(tournament);
   } catch (e) {
