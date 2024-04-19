@@ -34,7 +34,7 @@ router.get("/get", (req, res) => {
     AddParticipantAbl(req, res);
   });
 
-  router.post("/getDetailAbl", (req, res) => {
+  router.get("/getdetail", (req, res) => {
     GetDetailAbl(req, res);
   });
   
