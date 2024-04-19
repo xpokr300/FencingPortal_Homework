@@ -6,8 +6,6 @@ const categoryDao = require("../../dao/category_dao.js");
 const participantDao = require("../../dao/participant_dao.js");
 const participantCreate = require("../participant/createAbl.js");
 
-
-
 const schema = {
   type: "object",
   properties: {
@@ -19,8 +17,8 @@ const schema = {
         {
           required: ["participantId"],
           properties: {
-            participantId: { type: "string" }
-          }
+            participantId: { type: "string" },
+          },
         },
         {
           required: ["firstName", "lastName", "club"],
@@ -28,16 +26,15 @@ const schema = {
             firstName: { type: "string" },
             middleName: { type: "string" },
             lastName: { type: "string" },
-            club: { type: "string" }
-          }
-        }
-      ]
-    }
+            club: { type: "string" },
+          },
+        },
+      ],
+    },
   },
   required: ["categoryId", "tournamentId", "participant"],
-  additionalProperties: false
+  additionalProperties: false,
 };
-
 
 async function addParticipantAbl(req, res) {
   try {
@@ -55,8 +52,10 @@ async function addParticipantAbl(req, res) {
     }
 
     //Control - tournament has to exist.
-    const tournamentList =  tournamentDao.list();
-    const tournamentExists = tournamentList.some((t) => t.id === registration.tournamentId);
+    const tournamentList = tournamentDao.list();
+    const tournamentExists = tournamentList.some(
+      (t) => t.id === registration.tournamentId
+    );
     if (!tournamentExists) {
       res.status(404).json({
         code: "tournamentNotFound",
@@ -66,8 +65,10 @@ async function addParticipantAbl(req, res) {
     }
 
     //Control - category has to exist.
-    const categoryList =  categoryDao.list();
-    const categoryExists = categoryList.some((c) => c.id === registration.categoryId);
+    const categoryList = categoryDao.list();
+    const categoryExists = categoryList.some(
+      (c) => c.id === registration.categoryId
+    );
     if (!categoryExists) {
       res.status(404).json({
         code: "categoryNotFound",
@@ -80,8 +81,8 @@ async function addParticipantAbl(req, res) {
     let participant;
 
     //user provides ID - existing one
-    if(registration.participant.participantId){
-      participant =  participantDao.get(registration.participant.participantId)
+    if (registration.participant.participantId) {
+      participant = participantDao.get(registration.participant.participantId);
       if (!participant) {
         res.status(404).json({
           code: "participantNotFound",
@@ -91,10 +92,14 @@ async function addParticipantAbl(req, res) {
       }
     }
     // user provides properties - the new one
-    else{
-      const participantList =  participantDao.list();
+    else {
+      const participantList = participantDao.list();
       const participantExists = participantList.some((p) => {
-         return p.firstName === registration.participant.firstName && p.lastName === registration.participant.lastName
+        return (
+          p.firstName === registration.participant.firstName &&
+          p.middleName === participant.middleName &&
+          p.lastName === registration.participant.lastName
+        );
       });
       if (participantExists) {
         res.status(400).json({
@@ -103,28 +108,28 @@ async function addParticipantAbl(req, res) {
         });
         return;
       }
-          //participant creation
+      //participant creation
       participant = participantDao.create(registration.participant);
     }
-    
 
     let participantRelation = {
-      id : participant.id
-    }
+      id: participant.id,
+    };
 
-    //creating tournament object for update 
-    let tournament =  tournamentDao.get(registration.tournamentId);
+    //creating tournament object for update
+    let tournament = tournamentDao.get(registration.tournamentId);
     let indexOfCategory = 0;
-    for(let i=0; i<tournament.categoriesList.length;i++){
-      if (tournament.categoriesList[i].id === registration.categoryId){
+    for (let i = 0; i < tournament.categoriesList.length; i++) {
+      if (tournament.categoriesList[i].id === registration.categoryId) {
         indexOfCategory = i;
       }
     }
-    
-    const participantsList = tournament.categoriesList[indexOfCategory].participantsList;
+
+    const participantsList =
+      tournament.categoriesList[indexOfCategory].participantsList;
     let participantExists = false;
-    for(let i=0; i<participantsList.length;i++){
-      if(participantsList[i].id === participant.id){
+    for (let i = 0; i < participantsList.length; i++) {
+      if (participantsList[i].id === participant.id) {
         participantExists = true;
       }
     }
@@ -132,15 +137,15 @@ async function addParticipantAbl(req, res) {
     if (participantExists) {
       res.status(400).json({
         code: "participantAlreadyRegistred",
-        message: `Participant with name ${participant.firstName} ${participant.lastName} already registred to this category`,
+        message: `Participant with name ${participant.firstName} ${participant.middleName} ${participant.lastName} already registred to this category`,
       });
       return;
     }
 
-
-    tournament.categoriesList[indexOfCategory].participantsList.push(participantRelation); 
-    const updatedTournament =  tournamentDao.update(tournament);
-
+    tournament.categoriesList[indexOfCategory].participantsList.push(
+      participantRelation
+    );
+    const updatedTournament = tournamentDao.update(tournament);
 
     res.json(updatedTournament);
   } catch (e) {

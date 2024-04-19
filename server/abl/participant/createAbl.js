@@ -11,7 +11,7 @@ const schema = {
     lastName: { type: "string" },
     club: { type: "string" },
   },
-  required: ["firstName", "lastName","club"],
+  required: ["firstName", "lastName", "club"],
   additionalProperties: false,
 };
 
@@ -31,11 +31,16 @@ async function CreateAbl(req, res) {
     }
 
     const participantList = participantDao.list();
-    const participantExists = participantList.some((c) => c.firstName === participant.firstName && c.lastName === participant.lastName);
+    const participantExists = participantList.some(
+      (p) =>
+        p.firstName === participant.firstName &&
+        p.lastName === participant.lastName &&
+        p.middleName === participant.middleName
+    );
     if (participantExists) {
       res.status(400).json({
         code: "participantAlreadyExists",
-        message: `Participant with name ${participant.firstName} ${participant.lastName} already exists`,
+        message: `Participant with name ${participant.firstName} ${participant.middleName} ${participant.lastName} already exists`,
       });
       return;
     }

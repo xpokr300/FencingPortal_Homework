@@ -1,7 +1,6 @@
 const Ajv = require("ajv");
 const ajv = new Ajv();
 
-
 const participantDao = require("../../dao/participant_dao.js");
 
 const schema = {
@@ -11,7 +10,7 @@ const schema = {
     firstName: { type: "string" },
     middleName: { type: "string" },
     lastName: { type: "string" },
-    club: { type: "string" }
+    club: { type: "string" },
   },
   required: ["id"],
   additionalProperties: false,
@@ -34,12 +33,16 @@ async function UpdateAbl(req, res) {
 
     const participantList = participantDao.list();
     const participantExists = participantList.some(
-      (p) => p.firstName === participant.firstName && p.lastName  === participant.lastName && p.id !== participant.id
+      (p) =>
+        p.firstName === participant.firstName &&
+        p.lastName === participant.lastName &&
+        p.middleName === participant.middleName &&
+        p.id !== participant.id
     );
     if (participantExists) {
       res.status(400).json({
         code: "participantAlreadyExists",
-        message: `Participant with name ${participant.name} ${participant.lastName} already exists`,
+        message: `Participant with name ${participant.name} ${participant.middleName} ${participant.lastName} already exists`,
       });
       return;
     }
