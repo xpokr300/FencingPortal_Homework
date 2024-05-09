@@ -23,5 +23,5 @@ app.use("/tournament",tournamentController)
 
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Fencing Portal listening on port ${port}`)
 })
