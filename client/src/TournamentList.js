@@ -24,7 +24,7 @@ function TournamentList() {
   return (
     <Container>
       <div style={{ textAlign: 'right'}}>
-        <Button variant="info" onClick={() => navigate("/")} style={{color :"white"}}>
+        <Button  onClick={() => navigate("/")} style={{color :"white", background:"#87CEFA", border:"none"}}>
           <Icon path={mdiPlusBoxOutline} size={1} color={"white"} /> Create Tournament
         </Button>
       </div>

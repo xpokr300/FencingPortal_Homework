@@ -5,7 +5,7 @@ import NotFound from "./NotFound";
 import TournamentListProvider from "./TournamentListProvider";
 import TournamentList from "./TournamentList";
 //import TournamentProvider from "./TournamentProvider";
-// import TournamentRoute from "./TournamentRoute";
+import TournamentDetail from "./TournamentDetail";
 
 function App() {
   return (
@@ -17,16 +17,10 @@ function App() {
               <Route index element={<TournamentList />} />
                 <Route path="tourmament" element={<div>tournament</div>}/>
                 <Route path="*" element={<NotFound />}/>
-
-                {/* <Route
-                  path="eventDetail"
-                  element={
-                    <EventProvider>
-                      <EventRoute />
-                    </EventProvider>
-                  }
-                />  */}
-                {/* <Route path="*" element={"not found"} /> */}
+                <Route
+                  path="tournamentDetail"
+                  element={<TournamentDetail />}                  
+                /> 
               </Route>
             </Routes>
           </BrowserRouter>

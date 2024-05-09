@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 //import EventDetail from "./EventDetail";
 
 import Icon from "@mdi/react";
-import { mdiEyeOutline, mdiPencil, mdiTrashCanOutline, mdiPlusBoxOutline} from "@mdi/js";
+import {mdiPencil, mdiEyeOutline} from "@mdi/js";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -27,23 +27,22 @@ function TournamentCard({tournament}) {
                 {tournament.index}
               </Col>
               <Col>
-              <a href=".">
+              <Button className="btn-light" onClick={() => navigate("/tournamentDetail?id=" + tournament.id)} >
                   {tournament.name}
-                </a>
+                </Button>
               </Col>
               <Col>
                 {dateToShow.toDateString()}
               </Col>
               <Col>
-                <Button  variant="info" onClick={() => navigate("/")} style={{color :"white"}}>
-                  <Icon path={mdiPlusBoxOutline} size={0.7} color={"white"} /> Sign in
-                </Button>    
+                <Button   onClick={() => navigate("/")} style={{margin:"5px", color :"white" , background:"#87CEFA", border:"none"}}>
+                  <Icon path={mdiPencil} size={0.7} color={"white"} /> Sign in
+                </Button>     
               </Col>
+
             </Row>
         
         </Container>
-
-
       
       
       /* <EventDateTimeBadge event={event} />
