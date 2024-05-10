@@ -4,7 +4,7 @@ import Layout from "./Layout";
 import NotFound from "./NotFound";
 import TournamentListProvider from "./TournamentListProvider";
 import TournamentList from "./TournamentList";
-//import TournamentProvider from "./TournamentProvider";
+import TournamentProvider from "./TournamentProvider";
 import TournamentDetail from "./TournamentDetail";
 
 function App() {
@@ -15,12 +15,15 @@ function App() {
             <Routes>
               <Route path="/" element={<Layout />}>
               <Route index element={<TournamentList />} />
-                <Route path="tourmament" element={<div>tournament</div>}/>
-                <Route path="*" element={<NotFound />}/>
-                <Route
-                  path="tournamentDetail"
-                  element={<TournamentDetail />}                  
+              <Route
+                  path="tournamentDetail"                  
+                  element={
+                    <TournamentProvider>
+                        <TournamentDetail />
+                    </TournamentProvider>
+                    }                 
                 /> 
+                <Route path="*" element={<NotFound />}/>
               </Route>
             </Routes>
           </BrowserRouter>

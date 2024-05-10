@@ -41,7 +41,7 @@ function TournamentList() {
             <Col>Date</Col>
             <Col></Col>
           </Row>
-          </Container>
+        </Container>
       </div>
 
 
