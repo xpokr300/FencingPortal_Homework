@@ -6,28 +6,38 @@ import TournamentListProvider from "./TournamentListProvider";
 import TournamentList from "./TournamentList";
 import TournamentProvider from "./TournamentProvider";
 import TournamentDetail from "./TournamentDetail";
+import TournamentForm from "./TournamentForm";
+import CategoryListProvider from "./CategoryListProvider";
 
 function App() {
   return (
     <div style={componentStyle()}>
-        <TournamentListProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout />}>
+      <TournamentListProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
               <Route index element={<TournamentList />} />
               <Route
-                  path="tournamentDetail"                  
-                  element={
-                    <TournamentProvider>
-                        <TournamentDetail />
-                    </TournamentProvider>
-                    }                 
-                /> 
-                <Route path="*" element={<NotFound />}/>
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </TournamentListProvider>
+                path="tournamentDetail"
+                element={
+                  <TournamentProvider>
+                    <TournamentDetail />
+                  </TournamentProvider>
+                }
+              />
+              <Route
+                path="tournamentCreation"
+                element={
+                    <CategoryListProvider>
+                      <TournamentForm />
+                    </CategoryListProvider>
+                }
+              />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </TournamentListProvider>
     </div>
   );
 }

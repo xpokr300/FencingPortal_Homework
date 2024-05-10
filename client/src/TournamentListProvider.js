@@ -38,31 +38,32 @@ function TournamentListProvider({ children }) {
     }
   }
 
-//   async function handleCreate(dtoIn) {
-//     setTournamentLoadObject((current) => ({ ...current, state: "pending" }));
-//     const response = await fetch(`http://localhost:3000/tournament/create`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(dtoIn),
-//     });
-//     const responseJson = await response.json();
+  async function handleCreate(dtoIn) {
+    console.log(dtoIn)
+    setTournamentLoadObject((current) => ({ ...current, state: "pending" }));
+    const response = await fetch(`http://localhost:3000/tournament/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dtoIn),
+    });
+    const responseJson = await response.json();
 
-//     if (response.status < 400) {
-//       setTournamentLoadObject((current) => {
-//         current.data.push(responseJson);
-//         current.data.sort((a, b) => new Date(a.date) - new Date(b.date));
-//         return { state: "ready", data: current.data };
-//       });
-//       return responseJson;
-//     } else {
-//       setTournamentLoadObject((current) => {
-//         return { state: "error", data: current.data, error: responseJson };
-//       });
-//       throw new Error(JSON.stringify(responseJson, null, 2));
-//     }
-//   }
+    if (response.status < 400) {
+      setTournamentLoadObject((current) => {
+        current.data.push(responseJson);
+        current.data.sort((a, b) => new Date(a.date) - new Date(b.date));
+        return { state: "ready", data: current.data };
+      });
+      return responseJson;
+    } else {
+      setTournamentLoadObject((current) => {
+        return { state: "error", data: current.data, error: responseJson };
+      });
+      throw new Error(JSON.stringify(responseJson, null, 2));
+    }
+  }
 
 //   async function handleUpdate(dtoIn) {
 //     setTournamentLoadObject((current) => ({ ...current, state: "pending" }));
@@ -145,7 +146,9 @@ function TournamentListProvider({ children }) {
   const value = {
     state: tournamentLoadObject.state,
     tournamentList: tournamentLoadObject.data || [],
-    //handlerMap: { handleCreate, handleUpdate, handleDelete, handleAttendance },
+    handlerMap: { handleCreate
+      // ,handleUpdate, handleDelete, handleAttendance
+     },
   };
 
   return (

@@ -5,7 +5,6 @@ import { TournamentListContext } from "./TournamentListContext.js";
 import Button from "react-bootstrap/esm/Button.js";
 
 import TournamentCard from "./TournamentCard";
-// import TournamentForm from "./TournamentForm.js";
 import Container from "react-bootstrap/esm/Container.js";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -13,7 +12,6 @@ import Col from 'react-bootstrap/Col';
 
 import Icon from "@mdi/react";
 import { mdiPlusBoxOutline, mdiPlusBoxMultipleOutline } from "@mdi/js";
-//import ConfirmDeleteDialog from "./ConfirmDeleteDialog.js";
 
 function TournamentList() {
   const { tournamentList } = useContext(TournamentListContext);
@@ -24,7 +22,7 @@ function TournamentList() {
   return (
     <Container>
       <div style={{ textAlign: 'right'}}>
-        <Button  onClick={() => navigate("/")} style={{color :"white", background:"#87CEFA", border:"none"}}>
+        <Button  onClick={() => navigate("/tournamentCreation")} style={{color :"white", background:"#87CEFA", border:"none"}}>
           <Icon path={mdiPlusBoxOutline} size={1} color={"white"} /> Create Tournament
         </Button>
       </div>
@@ -43,18 +41,6 @@ function TournamentList() {
           </Row>
         </Container>
       </div>
-
-
-
-      {/* {!!showTournamentForm ? (
-        <TournamentForm tournament={showTournamentForm} setShowTournamentForm={setShowTournamentForm} />
-      ) : null}
-      {!!showConfirmDeleteDialog ? (
-        <ConfirmDeleteDialog
-          tournament={showConfirmDeleteDialog}
-          setShowConfirmDeleteDialog={setShowConfirmDeleteDialog}
-        />
-      ) : null} */}
 
 
       {tournamentList.map((tournament) => {
