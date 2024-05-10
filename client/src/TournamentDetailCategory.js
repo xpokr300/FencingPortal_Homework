@@ -9,7 +9,7 @@ import Icon from "@mdi/react";
 import { mdiPencil } from "@mdi/js";
 
 
-function TournamentDetailCategory({}) {
+function TournamentDetailCategory({category}) {
   const { tournament } = useContext(TournamentContext);
   const navigate = useNavigate();
 
@@ -17,8 +17,14 @@ function TournamentDetailCategory({}) {
     <Container>
       {tournament ? (
           <>
-              Toto je komponenta ktera vzkresule detail categorie daneho turnaje
+            <Row>
+              <Col>Category
+              </Col>
+              <Col>{category}
+              </Col>
+            </Row>              
           </>
+
           
       ): (
           "loading..."

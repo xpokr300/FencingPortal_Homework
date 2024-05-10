@@ -10,20 +10,27 @@ import { TournamentContext } from "./TournamentContext";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { TournamentDetailCategory } from "./TournamentDetailCategory";
+import { CategoryListContext } from "./CategoryListContext.js";
 
 
 function TournamentDetail (){
 
   const { tournament } = useContext(TournamentContext);
+  const { categoryList} = useContext(CategoryListContext);
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (tournament) {
-      const fetchedCategories = tournament.categoriesList.map((c) => c);
-      setCategories(fetchedCategories);
+    if (tournament && categoryList) {
+      const categoriesNames = tournament.categoriesList.map((tournamentCategory) => {
+        const existingCategory = categoryList.find((category) => category.id === tournamentCategory.categoryId);
+        return existingCategory ? existingCategory.name : null;
+      });
+  
+      setCategories(categoriesNames.filter(Boolean)); // Odstraníme případné null hodnoty
     }
-  }, [tournament]);
+  }, [tournament, categoryList]);
+  
 
   console.log(categories);
 
@@ -43,17 +50,14 @@ function TournamentDetail (){
                 <Icon path={mdiPencil} size={1} color={"white"} /> Sign in
               </Button>
             </div>
-            <TournamentDetailHeader />
+            <TournamentDetailHeader 
+            categories={categories}/>
             <div>
               {categories.map((c) => {
                 return(
                   <>
-                  <Row>
-                    <Col>Category</Col>
-                    <Col>{c.categoryId}</Col>
-                  </Row>
-                  <TournamentDetailCategory/>
-
+                  <TournamentDetailCategory
+                  category = {c}/>
                   </>                  
                 )
               })}

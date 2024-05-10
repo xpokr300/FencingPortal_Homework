@@ -9,9 +9,10 @@ import Icon from "@mdi/react";
 import { mdiPencil } from "@mdi/js";
 
 
-function TournamentDetailHeader({}) {
+function TournamentDetailHeader({categories}) {
   const { tournament } = useContext(TournamentContext);
   const navigate = useNavigate();
+  console.log(categories);
 
   return (
     <Container>
@@ -39,8 +40,8 @@ function TournamentDetailHeader({}) {
               <Row>
               <Col className="border">Categories</Col>
               <Col className="border">
-                  {tournament.categoriesList.map((c) => (
-                  <li>{c.categoryId}</li>
+                  {categories.map((c) => (
+                  <li>{c}</li>
                   ))}
               </Col>
               <br/>

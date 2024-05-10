@@ -52,8 +52,7 @@ function TournamentListProvider({ children }) {
 
     if (response.status < 400) {
       setTournamentLoadObject((current) => {
-        current.data.push(responseJson);
-        current.data.sort((a, b) => new Date(a.date) - new Date(b.date));
+        current.data.unshift(responseJson);
         return { state: "ready", data: current.data };
       });
       return responseJson;

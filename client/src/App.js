@@ -13,30 +13,25 @@ function App() {
   return (
     <div style={componentStyle()}>
       <TournamentListProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<TournamentList />} />
-              <Route
-                path="tournamentDetail"
-                element={
-                  <TournamentProvider>
-                    <TournamentDetail />
-                  </TournamentProvider>
-                }
-              />
-              <Route
-                path="tournamentCreation"
-                element={
-                    <CategoryListProvider>
-                      <TournamentForm />
-                    </CategoryListProvider>
-                }
-              />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+        <CategoryListProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<TournamentList />} />
+                <Route
+                  path="tournamentDetail"
+                  element={
+                    <TournamentProvider>
+                      <TournamentDetail />
+                    </TournamentProvider>
+                  }
+                />
+                <Route path="tournamentCreation" element={<TournamentForm />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </CategoryListProvider>
       </TournamentListProvider>
     </div>
   );
