@@ -17,15 +17,15 @@ function TournamentDetailCategory({category}) {
     <Container>
       {tournament ? (
           <>
-            <Row>
+          
+            {/* TODO
+             <Row>
               <Col>Category
               </Col>
               <Col>{category}
               </Col>
-            </Row>              
-          </>
-
-          
+            </Row>               */}
+          </>          
       ): (
           "loading..."
         )}        
