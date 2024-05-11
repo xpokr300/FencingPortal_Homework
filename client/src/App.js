@@ -7,6 +7,7 @@ import TournamentList from "./TournamentList";
 import TournamentProvider from "./TournamentProvider";
 import TournamentDetail from "./TournamentDetail";
 import TournamentForm from "./TournamentForm";
+import TournamentRegistration from "./TournamentRegistration";
 import CategoryListProvider from "./CategoryListProvider";
 
 function App() {
@@ -27,6 +28,14 @@ function App() {
                   }
                 />
                 <Route path="tournamentCreation" element={<TournamentForm />} />
+                <Route
+                  path="tournamentRegistration"
+                  element={
+                    <TournamentProvider>
+                      <TournamentRegistration />
+                    </TournamentProvider>
+                  }
+                />
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>

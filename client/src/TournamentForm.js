@@ -10,15 +10,16 @@ import { TournamentListContext } from "./TournamentListContext.js";
 import Alert from "react-bootstrap/Alert";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
+import ModalFooter from "react-bootstrap/esm/ModalFooter.js";
 
 function TournamentForm() {
-  const { categoryList} = useContext(CategoryListContext);
-  const {handlerMap } = useContext(TournamentListContext);
+  const { categoryList } = useContext(CategoryListContext);
+  const { handlerMap } = useContext(TournamentListContext);
   const navigate = useNavigate();
-
 
   const [namesOfCategories, setCategories] = useState([]);
   const [showModal, setShowModal] = useState();
+  const [showPositiveModal, setShowPositiveModal] = useState();
 
   useEffect(() => {
     if (categoryList) {
@@ -66,7 +67,7 @@ function TournamentForm() {
           try {
             console.dir(data);
             await handlerMap.handleCreate(data);
-            navigate("/")
+            setShowPositiveModal(true);
           } catch (e) {
             console.error(e);
             setShowModal(e.message);
@@ -78,11 +79,32 @@ function TournamentForm() {
             <Modal.Title>Error</Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>Something went wrong, try again....
+          <Modal.Body>
+            Something went wrong, try again....
             <pre>{showModal}</pre>
           </Modal.Body>
-          
         </Modal>
+
+        <Modal show={showPositiveModal} onHide={() => navigate("/")}>
+          <Modal.Header closeButton>
+            <Modal.Title>Tournament creation</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            Tournamant has been created succesfully.
+            <pre>{showModal}</pre>
+          </Modal.Body>
+          <ModalFooter>
+          <Button
+          variant="primary"
+          onClick={() =>navigate("/")}
+        >
+          OK
+        </Button>
+          </ModalFooter>
+        </Modal>
+
+
 
         <Form.Group className="mb-3" controlId="formName">
           <Form.Control type="text" name="name" placeholder="Name" />

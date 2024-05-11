@@ -64,6 +64,7 @@ function TournamentListProvider({ children }) {
     }
   }
 
+//TODO - bude použito v rámci přihlašování uživatele. Edituje se načtený turnaj z kontextu.
 //   async function handleUpdate(dtoIn) {
 //     setTournamentLoadObject((current) => ({ ...current, state: "pending" }));
 //     const response = await fetch(`http://localhost:3000/tournament/update`, {
@@ -93,60 +94,14 @@ function TournamentListProvider({ children }) {
 //     }
 //   }
 
-//   async function handleDelete(dtoIn) {
-//     setTournamentLoadObject((current) => ({ ...current, state: "pending" }));
-//     const response = await fetch(`http://localhost:3000/tournament/delete`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(dtoIn),
-//     });
-//     const responseJson = await response.json();
 
-//     if (response.status < 400) {
-//       setTournamentLoadObject((current) => {
-//         const tournamentIndex = current.data.findIndex(
-//           (e) => e.id === responseJson.id
-//         );
-//         current.data.splice(tournamentIndex, 1);
-//         return { state: "ready", data: current.data };
-//       });
-//       return responseJson;
-//     } else {
-//       setTournamentLoadObject((current) => ({
-//         state: "error",
-//         data: current.data,
-//         error: responseJson,
-//       }));
-//       throw new Error(JSON.stringify(responseJson, null, 2));
-//     }
-//   }
 
-//   async function handleAttendance(dtoIn) {
-//     setTournamentLoadObject((current) => ({ ...current, state: "pending" }));
-//     const response = await fetch(`http://localhost:3000/attendance/update`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(dtoIn),
-//     });
-//     const responseJson = await response.json();
-
-//     if (response.status < 400) {
-//       await handleLoad();
-//     } else {
-//       setTournamentLoadObject((current) => ({
-//         state: "error",
-//         data: current.data,
-//         error: responseJson,
-//       }));
-//       throw new Error(JSON.stringify(responseJson, null, 2));
-//     }
-//   }
 
   const value = {
     state: tournamentLoadObject.state,
     tournamentList: tournamentLoadObject.data || [],
     handlerMap: { handleCreate
-      // ,handleUpdate, handleDelete, handleAttendance
+      // ,handleUpdate
      },
   };
 
